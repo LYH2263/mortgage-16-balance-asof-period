@@ -10,3 +10,10 @@ button { background:var(--accent); color:#fff; border:0; padding:0.35rem 0.75rem
 input { border:1px solid var(--grid); padding:0.3rem; }
 a { color: var(--accent); }
 .hero-num { font-size:1.8rem; font-weight:700; }
+.asof-bar { display:flex; align-items:center; gap:0.6rem; margin:0.75rem 0; flex-wrap:wrap; }
+.asof-card { background:#fbf6ea; border:1px solid var(--accent); padding:0.5rem 0.75rem; margin-bottom:0.75rem; }
+.asof-card .tag { margin-left:0.5rem; background:var(--accent); color:#fff; padding:0 0.4rem; font-size:0.85em; }
+tr.hl td { background:#f3e2c2; font-weight:700; }
+.err { color:#a33; }
+.muted { color:#7a6f5d; font-size:0.9em; }
+.pin { display:flex; align-items:center; gap:0.3rem; }

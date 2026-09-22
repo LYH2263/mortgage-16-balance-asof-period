@@ -1,3 +1,19 @@
+def balance_asof(principal: float, annual_rate: float, months: int, target_period: int) -> dict:
+    sched = equal_payment_schedule(principal, annual_rate, months)
+    p = int(target_period)
+    n = len(sched["rows"])
+    if p < 1 or p > n:
+        raise ValueError("target_period")
+    row = sched["rows"][p - 1]
+    principal_paid = round(sum(x["principal"] for x in sched["rows"][:p]), 2)
+    return {
+        "period": p,
+        "balance": row["balance"],
+        "principal": row["principal"],
+        "interest": row["interest"],
+        "principal_paid": principal_paid,
+    }
+
 def equal_payment_schedule(principal: float, annual_rate: float, months: int) -> dict:
     P = float(principal)
     n = int(months)

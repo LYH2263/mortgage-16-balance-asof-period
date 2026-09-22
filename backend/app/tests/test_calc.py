@@ -1,5 +1,5 @@
 import pytest
-from app.engines.amortization import equal_payment_schedule
+from app.engines.amortization import balance_asof, equal_payment_schedule
 
 def test_monthly_payment():
     s = equal_payment_schedule(1_000_000, 3.5, 360)
