@@ -1,5 +1,5 @@
 from app.db import connect
-from app.engines.amortization import equal_payment_schedule
+from app.engines.amortization import balance_asof, equal_payment_schedule
 from app.repositories import loans, runs, settings
 
 class MortgageService:
@@ -19,6 +19,15 @@ class MortgageService:
         rid = None
         if persist:
             rid = runs.insert(self._c, "schedule", {"principal": principal, "annual_rate": annual_rate, "months": months}, out, loan_id)
+        return {"run_id": rid, **out}
+    def balance_asof(self, principal, annual_rate, months, period, loan_id, persist):
+        if period > months:
+            raise ValueError("period")
+        out = balance_asof(principal, annual_rate, months, period)
+        rid = None
+        if persist:
+            rid = runs.insert(self._c, "balance_asof",
+                {"principal": principal, "annual_rate": annual_rate, "months": months, "period": period}, out, loan_id)
         return {"run_id": rid, **out}
     def dashboard(self):
         items = loans.list_all(self._c)

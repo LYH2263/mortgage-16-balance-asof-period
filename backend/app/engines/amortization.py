@@ -34,3 +34,20 @@ def equal_payment_schedule(principal: float, annual_rate: float, months: int) ->
         "total_payment": round(sum(x["payment"] for x in rows), 2),
         "rows": rows,
     }
+
+
+def balance_asof(principal: float, annual_rate: float, months: int, period: int) -> dict:
+    """第 period 期期末的剩余本金快照,行数据与 equal_payment_schedule 完全一致。"""
+    n = int(months)
+    p = int(period)
+    if p < 1 or p > n:
+        raise ValueError("period")
+    row = equal_payment_schedule(principal, annual_rate, n)["rows"][p - 1]
+    return {
+        "period": p,
+        "payment": row["payment"],
+        "principal": row["principal"],
+        "interest": row["interest"],
+        "balance": row["balance"],
+        "principal_paid": round(float(principal) - row["balance"], 2),
+    }
